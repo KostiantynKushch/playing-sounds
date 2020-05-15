@@ -78,3 +78,7 @@ textarea {
 .ba-btn-play {
   background-color: transparent;
 }
+.ba-hidden {
+  opacity: 0;
+  pointer-events: none;
+}

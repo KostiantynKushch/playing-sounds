@@ -17,12 +17,11 @@ modes.forEach(mode => {
 		if (mode.checked == true) {
 			if (mode.value === 'sandbox') {
 				playingSounds(true);
+				play.classList.add('ba-hidden');
 			} else if (mode.value === 'record') {
 				playingSounds(false);
 				record();
-
-
-
+				play.classList.remove('ba-hidden');
 
 			}
 		}
@@ -77,8 +76,6 @@ function playingSounds(check) {
 		window.removeEventListener('keydown', buttonSound);
 		return;
 	}
-
-
 
 }
 
