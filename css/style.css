@@ -74,3 +74,7 @@ textarea {
 .ba-playing {
   background-color: rgb(204, 154, 36, 1);
 }
+
+.ba-btn-play {
+  background-color: transparent;
+}

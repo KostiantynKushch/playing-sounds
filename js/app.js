@@ -2,6 +2,8 @@
 
 const modes = document.querySelectorAll('.ba-mode');
 const keys = document.querySelectorAll('.ba-key');
+const play = document.querySelector('.ba-btn-play');
+
 
 
 
@@ -18,6 +20,10 @@ modes.forEach(mode => {
 			} else if (mode.value === 'record') {
 				playingSounds(false);
 				record();
+
+
+
+
 			}
 		}
 	});
@@ -25,13 +31,18 @@ modes.forEach(mode => {
 
 
 
+let audioTrack = []; //stores audio track
 function record() {
+	writeToList();
+}
 
-	let audioTrack = [{ 'keyCode': 71, 'duration': 150 }, { 'keyCode': 72, 'duration': 500 }, { 'keyCode': 74, 'duration': 1000 }];
-
+play.addEventListener('click', () => {
 	playTrack(audioTrack);
+});
 
 
+function writeToList() {
+	window.addEventListener('keydown', recButtonSounds);
 }
 
 
@@ -101,3 +112,44 @@ function buttonSound(btn) {
 	}
 
 }
+
+let startTime, endTime, duration;
+
+function recButtonSounds(btn) {
+	const key = document.querySelector(`.ba-key[data-key="${btn.keyCode}"]`);
+	const audio = document.querySelector(`audio[data-key="${btn.keyCode}"]`);
+
+	if (!audio) {
+		return;
+	}
+	else {
+		audio.currentTime = 0;
+		audio.play();
+		key.classList.add('ba-playing');
+
+		if (audioTrack.length < 1) {
+			// start timer
+			startTime = +new Date();
+			console.log(startTime);
+			// btn recordr with zero duration
+			audioTrack.push({ 'keyCode': btn.keyCode, 'duration': 0 });
+			console.log(audioTrack);
+		} else {
+
+			// timer stop
+			endTime = +new Date();
+			duration = endTime - startTime;
+			console.log(duration);
+			// record duration to prev trackPart
+			audioTrack[audioTrack.length - 1].duration = duration;
+			// timer start
+			startTime = +new Date();
+			// btn recordr with zero duration
+			audioTrack.push({ 'keyCode': btn.keyCode, 'duration': 0 });
+			console.log(audioTrack);
+		}
+
+	}
+
+}
+
