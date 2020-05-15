@@ -3,7 +3,8 @@
 const modes = document.querySelectorAll('.ba-mode');
 const keys = document.querySelectorAll('.ba-key');
 const play = document.querySelector('.ba-btn-play');
-
+const clear = document.querySelector('.ba-btn-clear');
+let audioTrack = []; //stores audio track
 
 
 
@@ -18,10 +19,13 @@ modes.forEach(mode => {
 			if (mode.value === 'sandbox') {
 				playingSounds(true);
 				play.classList.add('ba-hidden');
+				clear.classList.add('ba-hidden');
 			} else if (mode.value === 'record') {
 				playingSounds(false);
 				record();
 				play.classList.remove('ba-hidden');
+				clear.classList.remove('ba-hidden');
+
 
 			}
 		}
@@ -30,7 +34,7 @@ modes.forEach(mode => {
 
 
 
-let audioTrack = []; //stores audio track
+
 function record() {
 	writeToList();
 }
@@ -39,6 +43,10 @@ play.addEventListener('click', () => {
 	playTrack(audioTrack);
 });
 
+clear.addEventListener('click', () => {
+	audioTrack = [];
+	console.log(audioTrack);
+});
 
 function writeToList() {
 	window.addEventListener('keydown', recButtonSounds);
@@ -47,12 +55,14 @@ function writeToList() {
 
 // play record from the list of tarck parts
 async function playTrack(audioTrack) {
+	play.classList.add('ba-disabled');
 	for (let i = 0; i < audioTrack.length; i++) {
 		const part = audioTrack[i];
 		buttonSound(part);
 		console.log(part);
 		await sleep(part.duration); //pause between sounds
 	}
+	play.classList.remove('ba-disabled');
 
 }
 

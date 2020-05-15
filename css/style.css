@@ -75,10 +75,17 @@ textarea {
   background-color: rgb(204, 154, 36, 1);
 }
 
-.ba-btn-play {
+.ba-btn-play,
+.ba-btn-clear {
   background-color: transparent;
 }
 .ba-hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+.ba-disabled {
+  pointer-events: none;
+  color: grey;
+  border-color: currentColor;
 }
